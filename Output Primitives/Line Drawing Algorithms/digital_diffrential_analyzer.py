@@ -1,10 +1,5 @@
-# A program to create a line segment between two points using the Cartesian Slope Intercept Equation.
-# Cartesian Slope Intercept Equation : y = m*x + b
-# m = y2 - y1 / x2 - x1
-# b = y1 - m * x1
-
-# ▲y = m * ▲x
-# ▲x = ▲y / m
+# The digital diffrential analyzer is a scan conversion line algorithm based on calculating ▲y or ▲x using the cartesian slope
+# intercept equation.
 
 import pygame
 
@@ -21,13 +16,25 @@ WHITE = (255, 255, 255)
 x1, y1 = starting_pos = (100, 100)
 x2, y2 = ending_pos = (250, 250)
 
-m = (y2 - y1) / (x2 - x1)
-b = y1 -  m * x1
+dx = x2 - x1
+dy = y2 - y1
+
+if abs(dx) > abs(dy):
+	steps = abs(dx)
+else:
+	steps = abs(dy)
+
+x_increment = dx / steps
+y_increment = dy / steps
 
 pixelArray = []
-for x in range(x1, x2 + 1):
-	y = int(m * x)
-	pixelArray.append((x,y))
+x, y = x1, y1
+pixelArray.append((x,y))
+
+for k in range(steps):
+	x += x_increment
+	y += y_increment
+	pixelArray.append((int(x),int(y)))
 
 # Displaying result on screen -------------------------------------------------
 
