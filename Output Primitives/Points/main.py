@@ -25,8 +25,7 @@ while running:
 				pixelArray.append(pos)
 
 	for pixel in pixelArray:
-		win.fill(WHITE, (pixel, (1, 1)))
-		# win.set_at(pixel, WHITE)
+		win.set_at(pixel, WHITE)
 
 	pygame.display.update()
 

@@ -1,7 +1,9 @@
-# The digital diffrential analyzer is a scan conversion line algorithm based on calculating ▲y or ▲x using the cartesian slope
-# intercept equation.
+# This algorithm is used for scan converting a line. It was developed by Bresenham.
+# It is an efficient method because it involves only integer addition, subtractions,
+# and multiplication operations. These operations can be performed very rapidly so
+# lines can be generated quickly.
 
-# Learn about it here : https://www.javatpoint.com/computer-graphics-dda-algorithm
+# Learn about it here : https://www.javatpoint.com/computer-graphics-bresenhams-line-algorithm
 
 import pygame
 
@@ -20,23 +22,31 @@ x2, y2 = ending_pos = (250, 250)
 
 dx = x2 - x1
 dy = y2 - y1
+twoDy = 2 * dy
+twoDyDx = 2 * (dy - dx)
+p = twoDy - dx
 
-if abs(dx) > abs(dy):
-	steps = abs(dx)
+if x1 > x2:
+	x = x2
+	y = y2
+	xend = x1
 else:
-	steps = abs(dy)
-
-x_increment = dx / steps
-y_increment = dy / steps
+	x = x1
+	y = y1
+	xend = x2
 
 pixelArray = []
-x, y = x1, y1
 pixelArray.append((x,y))
 
-for k in range(steps):
-	x += x_increment
-	y += y_increment
-	pixelArray.append((int(x),int(y)))
+while x < xend:
+	x += 1
+
+	if p < 0:
+		p += twoDy
+	else:
+		y += 1
+		p += twoDyDx
+	pixelArray.append((x,y))
 
 # Displaying result on screen -------------------------------------------------
 
